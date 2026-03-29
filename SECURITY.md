@@ -2,7 +2,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in `docker-flask-postgres-api`, please report it via email to security@yourdomain.com rather than creating a public issue. We will acknowledge your report within 48 hours and work with you to coordinate a fix and disclosure timeline.
+If you discover a security vulnerability in `docker-flask-postgres-api`, please report it via email to donny.dev@outlook.com rather than creating a public issue. We will acknowledge your report within 48 hours and work with you to coordinate a fix and disclosure timeline.
 
 ## Supported Versions
 
