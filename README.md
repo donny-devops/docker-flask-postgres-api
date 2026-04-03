@@ -1,4 +1,4 @@
-# docker-flask-postgres-api
+# Docker Flask Postgres API
 
 A production-ready REST API built with **Flask**, **PostgreSQL**, and **Docker Compose** — complete with migrations, a full test suite, and a GitHub Actions CI pipeline.
 
