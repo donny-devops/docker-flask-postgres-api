@@ -33,8 +33,6 @@ def client(app: Flask) -> FlaskClient:
 
 
 # ── Health Check ──────────────────────────────────────────────────────────────
-
-
 class TestHealth:
     def test_health_returns_200(self, client: FlaskClient) -> None:
         resp = client.get("/health")
@@ -42,9 +40,7 @@ class TestHealth:
         assert resp.json["status"] == "healthy"
 
 
-# ── List Items ─────────────────────────────────────────────────────────────────
-
-
+# ── List Items ────────────────────────────────────────────────────────────────
 class TestListItems:
     def test_empty_list(self, client: FlaskClient) -> None:
         resp = client.get("/api/v1/items")
@@ -55,7 +51,6 @@ class TestListItems:
         client.post("/api/v1/items", json={"name": "active-item"})
         created = client.post("/api/v1/items", json={"name": "to-delete"}).json
         client.delete(f"/api/v1/items/{created['id']}")
-
         resp = client.get("/api/v1/items")
         assert resp.status_code == 200
         names = [i["name"] for i in resp.json]
@@ -63,9 +58,7 @@ class TestListItems:
         assert "to-delete" not in names
 
 
-# ── Create Item ────────────────────────────────────────────────────────────────
-
-
+# ── Create Item ───────────────────────────────────────────────────────────────
 class TestCreateItem:
     def test_create_success(self, client: FlaskClient) -> None:
         resp = client.post(
@@ -80,11 +73,11 @@ class TestCreateItem:
 
     def test_create_missing_name(self, client: FlaskClient) -> None:
         resp = client.post("/api/v1/items", json={"description": "no name"})
-        assert resp.status_code == 400
+        assert resp.status_code == 422
 
     def test_create_blank_name(self, client: FlaskClient) -> None:
-        resp = client.post("/api/v1/items", json={"name": "   "})
-        assert resp.status_code == 400
+        resp = client.post("/api/v1/items", json={"name": " "})
+        assert resp.status_code == 422
 
     def test_create_duplicate_name(self, client: FlaskClient) -> None:
         client.post("/api/v1/items", json={"name": "dup"})
@@ -96,9 +89,7 @@ class TestCreateItem:
         assert resp.status_code == 400
 
 
-# ── Get Item ───────────────────────────────────────────────────────────────────
-
-
+# ── Get Item ──────────────────────────────────────────────────────────────────
 class TestGetItem:
     def test_get_existing(self, client: FlaskClient) -> None:
         created = client.post("/api/v1/items", json={"name": "find-me"}).json
@@ -111,9 +102,7 @@ class TestGetItem:
         assert resp.status_code == 404
 
 
-# ── Update Item ────────────────────────────────────────────────────────────────
-
-
+# ── Update Item ───────────────────────────────────────────────────────────────
 class TestUpdateItem:
     def test_update_name(self, client: FlaskClient) -> None:
         created = client.post("/api/v1/items", json={"name": "old-name"}).json
@@ -126,15 +115,12 @@ class TestUpdateItem:
         assert resp.status_code == 404
 
 
-# ── Delete Item ────────────────────────────────────────────────────────────────
-
-
+# ── Delete Item ───────────────────────────────────────────────────────────────
 class TestDeleteItem:
     def test_soft_delete(self, client: FlaskClient) -> None:
         created = client.post("/api/v1/items", json={"name": "bye"}).json
         resp = client.delete(f"/api/v1/items/{created['id']}")
         assert resp.status_code == 200
-
         # Confirm it no longer appears in active list
         items = client.get("/api/v1/items").json
         assert not any(i["id"] == created["id"] for i in items)
