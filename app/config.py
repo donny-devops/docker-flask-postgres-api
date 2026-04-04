@@ -1,8 +1,6 @@
 import os
-from dataclasses import dataclass
 
 
-@dataclass
 class Config:
     """Base configuration loaded from environment variables."""
 
@@ -12,16 +10,12 @@ class Config:
         "postgresql://appuser:apppassword@localhost:5432/appdb",
     )
     SQLALCHEMY_TRACK_MODIFICATIONS: bool = False
-    SQLALCHEMY_ENGINE_OPTIONS: dict = None  # type: ignore[assignment]
-
-    def __post_init__(self) -> None:
-        self.SQLALCHEMY_ENGINE_OPTIONS = {
-            "pool_pre_ping": True,
-            "pool_recycle": 300,
-        }
+    SQLALCHEMY_ENGINE_OPTIONS: dict = {
+        "pool_pre_ping": True,
+        "pool_recycle": 300,
+    }
 
 
-@dataclass
 class TestingConfig(Config):
     """Testing configuration with SQLite in-memory database."""
 

@@ -1,4 +1,5 @@
 """Pytest fixtures shared across the test suite."""
+
 import pytest
 
 from app import create_app

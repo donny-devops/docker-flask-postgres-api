@@ -1,4 +1,5 @@
 """API route handlers for the /api/v1 blueprint."""
+
 from flask import Blueprint, Response, jsonify, request
 from marshmallow import ValidationError
 from sqlalchemy.exc import IntegrityError
