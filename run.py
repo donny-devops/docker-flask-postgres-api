@@ -5,6 +5,7 @@ Usage:
 
 For production, use gunicorn via docker-compose or the Dockerfile CMD.
 """
+
 import os
 
 from app import create_app

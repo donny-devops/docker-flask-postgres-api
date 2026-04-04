@@ -22,6 +22,7 @@ def clean_db(app: Flask) -> None:
     """Truncate tables between tests."""
     with app.app_context():
         from app.models import Item
+
         _db.session.query(Item).delete()
         _db.session.commit()
 
@@ -33,6 +34,7 @@ def client(app: Flask) -> FlaskClient:
 
 # ── Health Check ──────────────────────────────────────────────────────────────
 
+
 class TestHealth:
     def test_health_returns_200(self, client: FlaskClient) -> None:
         resp = client.get("/health")
@@ -41,6 +43,7 @@ class TestHealth:
 
 
 # ── List Items ─────────────────────────────────────────────────────────────────
+
 
 class TestListItems:
     def test_empty_list(self, client: FlaskClient) -> None:
@@ -61,6 +64,7 @@ class TestListItems:
 
 
 # ── Create Item ────────────────────────────────────────────────────────────────
+
 
 class TestCreateItem:
     def test_create_success(self, client: FlaskClient) -> None:
@@ -94,6 +98,7 @@ class TestCreateItem:
 
 # ── Get Item ───────────────────────────────────────────────────────────────────
 
+
 class TestGetItem:
     def test_get_existing(self, client: FlaskClient) -> None:
         created = client.post("/api/v1/items", json={"name": "find-me"}).json
@@ -108,6 +113,7 @@ class TestGetItem:
 
 # ── Update Item ────────────────────────────────────────────────────────────────
 
+
 class TestUpdateItem:
     def test_update_name(self, client: FlaskClient) -> None:
         created = client.post("/api/v1/items", json={"name": "old-name"}).json
@@ -121,6 +127,7 @@ class TestUpdateItem:
 
 
 # ── Delete Item ────────────────────────────────────────────────────────────────
+
 
 class TestDeleteItem:
     def test_soft_delete(self, client: FlaskClient) -> None:

@@ -16,5 +16,4 @@ class Item(db.Model):
         onupdate=lambda: datetime.now(UTC),
     )
 
-    def to_dict(self) -> dict:
-        ...
+    def to_dict(self) -> dict: ...
