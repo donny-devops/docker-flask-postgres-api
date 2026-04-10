@@ -7,7 +7,7 @@ Flask-Migrate==4.0.7
 psycopg2-binary==2.9.9
 
 # ── Config ────────────────────────────────────────────────────────────────────
-python-dotenv==1.0.1
+python-dotenv==1.2.2
 
 # ── Serialization / Validation ────────────────────────────────────────────────
 marshmallow==3.26.2
