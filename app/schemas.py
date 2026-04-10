@@ -1,4 +1,5 @@
 """Marshmallow schemas for request validation and response serialization."""
+
 from marshmallow import Schema, ValidationError, fields, validate, validates
 
 

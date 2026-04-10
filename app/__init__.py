@@ -15,6 +15,7 @@ def create_app(config_class: type = Config) -> Flask:
 
     # Register blueprints
     from app.routes import api_bp  # noqa: PLC0415
+
     app.register_blueprint(api_bp, url_prefix="/api/v1")
 
     # Health check endpoint (outside blueprint for simplicity)
